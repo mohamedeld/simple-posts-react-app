@@ -1,17 +1,20 @@
 import { useState } from "react";
 import PostList from "./components/PostList";
+import MainHeader from "./components/MainHeader";
 
-const allPosts = [
-  {id:1,author:'mohamed',body:'welcome in programming'},
-  {id:2,author:'ahmed',body:'hello world'},
-  {id:3,author:'ali',body:'are you ready'}
-]
 function App() {
-  const [posts,setPosts] = useState(allPosts);
+  
+  const [isModalView,setIsModalView] = useState(false);
+  function handleDisplayDialog(){
+    setIsModalView(true);
+  }
   return (
     <>
-   
-      <PostList posts={posts} setPosts={setPosts}/>
+    <MainHeader  handleDisplayDialog={handleDisplayDialog}/>
+      <main>
+
+      <PostList  isModalView={isModalView} setIsModalView={setIsModalView}/>
+      </main>
     </>
   )
 }

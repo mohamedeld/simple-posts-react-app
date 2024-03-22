@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import styles from "./NewPost.module.css";
-function NewPost({handleAddPost}) {
+function NewPost({handleAddPost,hideModalHandler}) {
   const [text,setText] = useState('')
   const [name,setName] = useState('');
   function handleSubmit(e){
@@ -11,6 +11,7 @@ function NewPost({handleAddPost}) {
       author:name
     }
     handleAddPost(data);
+    hideModalHandler()
   }
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -22,9 +23,10 @@ function NewPost({handleAddPost}) {
       <label htmlFor="name">Name</label>
       <input type="text" id="name" required value={name} onChange={(e)=> setName(e.target.value)}/>
       </p>
-      <div className={styles.actions}>
+      <p className={styles.actions}>
+        <button type="button" onClick={hideModalHandler}>cancel</button>
         <button type='submit'>add</button>
-      </div>
+      </p>
     </form>
   )
 }

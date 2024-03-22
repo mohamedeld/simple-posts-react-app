@@ -1,14 +1,28 @@
+import { useState } from "react";
+import Modal from "./Modal";
 import NewPost from "./NewPost";
 import Post from "./Post";
 import styles from "./PostList.module.css";
 
-function PostList({ posts,setPosts }) {
-  function handleAddPost(post){
-    setPosts([...posts,post ]);
+const allPosts = [
+  {id:1,author:'mohamed',body:'welcome in programming'},
+  {id:2,author:'ahmed',body:'hello world'},
+  {id:3,author:'ali',body:'are you ready'}
+]
+function PostList({ isModalView,setIsModalView }) {
+  const [posts,setPosts] = useState(allPosts);
+  function handleAddPost(post) {
+    setPosts((prevState)=> [...prevState,post]);
   }
+  function hideModalHandler(){
+    setIsModalView(false)
+  }
+
   return (
     <>
-      <NewPost handleAddPost={handleAddPost}/>
+     { isModalView && <Modal onClose={hideModalHandler}>
+        <NewPost handleAddPost={handleAddPost} hideModalHandler={hideModalHandler} />
+      </Modal>}
       <ul className={styles.posts}>
         {posts && posts.length > 0 ? (
           posts.map((post) => {
